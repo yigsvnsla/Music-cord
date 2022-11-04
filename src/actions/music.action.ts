@@ -12,8 +12,10 @@ export class ActionMusic {
 	private trackList: VideoSearchResult[]
 	private audioPlayer : AudioPlayer
     constructor() {
-		this.audioPlayer = createAudioPlayer();
+		// this.audioPlayer = createAudioPlayer();
 		this.connection = undefined
+		this.audioPlayer = createAudioPlayer();
+
 		this.trackList = Array.from({length:0})
 
     }
@@ -76,16 +78,17 @@ export class ActionMusic {
 	}
 
 	public async playAudio(track:VideoSearchResult){
-		// if (!this.trackList[0]) return;		
-		let resourse = createAudioResource(ytdl(track.url, { filter: 'audioonly'}));     
-		this.audioPlayer.play(resourse);
+		let resource 	= createAudioResource(ytdl(track.url, { filter: 'audioonly',quality:'lowestaudio',highWaterMark:1 << 62, dlChunkSize:0, liveBuffer:1 << 62,}));
+		this.audioPlayer.play(resource)
 		this.connection?.subscribe(this.audioPlayer);
 	
+		// test error handler
+		this.audioPlayer.on("error", error => console.log(error.message))
 		this.audioPlayer.on("stateChange", (oldState, newState) =>{
 		  switch (newState.status){
 			case "idle":
 				console.log('dasdas');
-				
+				this.connection?.destroy()
 			//   this.#nextSong();
 			  break;
 		  };
@@ -93,7 +96,8 @@ export class ActionMusic {
 	}
 
 	public async findAudio(query:string){
-		return await ytSearch(query)
+		const audio = await ytSearch(query);
+		return audio.videos[0];
 	}
 
 	public async joinVoiceChannel(interaction:ChatInputCommandInteraction){
@@ -127,7 +131,7 @@ export class ActionMusic {
 		switch (option.name) {
 			case 'play':
 				if (!this.connection ) { this.joinVoiceChannel(interaction)	}
-				const track = ((await this.findAudio((option.value as string))).all[0] as VideoSearchResult);
+				const track = ((await this.findAudio((option.value as string))) as VideoSearchResult);
 				await this.playAudio(track)
 				const menu = await this.menuContext('play');
 				
