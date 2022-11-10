@@ -31,11 +31,14 @@ export class Queue <T> {
      * agrega (almacena) un elemento a la cola.
      * @parameter data
      */
-    public enqueue(data: T) {
+     public enqueue(data: T) {
         try {
-            if (this.isfull()) throw new Error(`<enqueue> Cola llena, intento de desbordamiento \n <value> ${data}`);
-            this._queue[this._rear] = data;
-            return this._rear
+            if (this.isfull()) 
+                throw new Error(`<enqueue> Cola llena, intento de desbordamiento \n <value> ${data}`);
+            
+            this._queue[this._rear] = data
+            this._rear += 1
+            
         } catch (error) {
             console.log(error);
             return 0
@@ -47,18 +50,15 @@ export class Queue <T> {
      */
     public dequeue() {
         try {
-            if (this.isempty()) throw new Error(`<enqueue> Cola Vacia, intento de subDesbordamiento`);
+            if (this.isempty()) 
+                throw new Error(`<enqueue> Cola Vacia, intento de subDesbordamiento`);
             
+            // falta actualizar el tamaño en this._lenght
             const data = this._queue[this._front]
-
-            // delete this._queue[this._front]
-            // const data = this._queue.splice(0,1)[0]
-
-            //? this._queue.filter(el=>el)
-            
-            this._queue.shift()
-            this._front++;
+            delete this._queue[this._front]
+            this._front += 1
             return data
+
         } catch (error) {
             console.log(error);
             return null
