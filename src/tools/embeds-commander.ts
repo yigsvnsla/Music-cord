@@ -42,7 +42,7 @@ export const EmbedSuccess = (embedOptions: EmbedOptions) => {
 export const EmbedPrimary = (embedOptions: EmbedOptions) => {
     return new EmbedBuilder({
         ...embedOptions,
-        color: resolveColor([255, 0, 0]),
+        color: resolveColor([0, 255, 0]),
         author: {
             name: 'Music-Cord',
             iconURL: 'https://www.iconpacks.net/icons/4/free-blue-question-icon-11805.png',

@@ -1,6 +1,6 @@
 import { CommandScript } from './index';
 import { ChatInputCommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder } from "discord.js";
-import { ActionMusic } from "../actions/music.action";
+import { ActionMusic, Player } from "../actions/music.action";
 
 
 const Action = new ActionMusic();
@@ -26,11 +26,21 @@ const script: CommandScript = {
 
     async execute(interaction: ChatInputCommandInteraction) {
 
+        // (interaction.options as CommandInteractionOptionResolver)
+
         if ((interaction.options as CommandInteractionOptionResolver)['_hoistedOptions'].length <= 0) {
-            await Action.outParameter(interaction)
+            // await Action.outParameter(interaction)
             return
         }
-        Action.optionsDispatcher(interaction)
+        
+        this.clientRef?.player.optionsDispatcher(interaction)
+        
+            
+        
+        
+
+
+        // Action.optionsDispatcher(interaction)
 
 
 

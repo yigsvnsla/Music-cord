@@ -4,7 +4,7 @@ import { readdir } from "node:fs/promises";
 import { REST, Routes, SlashCommandBuilder } from "discord.js";
 
 export interface CommandScript {
-    clientRef?: DiscordClient | undefined
+    clientRef?: DiscordClient
     data: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">
     execute(interaction: any | any[]): Promise<void>;
 
@@ -54,11 +54,13 @@ export class CommanderScripts {
      * * applicationGuildCommands
      */
     public async register() {
-        const commands = (await this.listCommands).map(command => command.data);            
+        const commands = (await this.listCommands).map(command => command.data);
         await this.rest.put(
-            Routes.applicationGuildCommands(`${process.env.ENV_CLIENT}`,`${process.env.ENV_GUILD}`), {
+            Routes.applicationGuildCommands(`${process.env.ENV_CLIENT}`, `${process.env.ENV_GUILD}`), {
             body: commands
         })
         console.log(`-- Updated Client Scripts --`);
     }
+
+
 }

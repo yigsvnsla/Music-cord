@@ -6,7 +6,8 @@ export default {
         // try {
         if (!interaction.isButton()) return;
         
-        console.log(interaction);
+        // console.log(interaction);
+        console.log('button Interactiom');
         
         
         // const filter = i => i.customId === 'play';
