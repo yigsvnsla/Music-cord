@@ -35,6 +35,7 @@ export class Queue <T> {
         try {
             if (this.isfull()) throw new Error(`<enqueue> Cola llena, intento de desbordamiento \n <value> ${data}`);
             this._queue[this._rear] = data;
+            this._rear += 1
             return this._rear
         } catch (error) {
             console.log(error);
@@ -53,11 +54,11 @@ export class Queue <T> {
 
             // delete this._queue[this._front]
             // const data = this._queue.splice(0,1)[0]
-
+            // this._queue.shift()
             //? this._queue.filter(el=>el)
-            
-            this._queue.shift()
-            this._front++;
+
+            delete this._queue[this._front]
+            this._front += 1
             return data
         } catch (error) {
             console.log(error);
