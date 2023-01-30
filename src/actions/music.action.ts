@@ -258,13 +258,8 @@ export class Player {
 			// break;
 					
 			default:
-				// await interaction.reply({ embeds: [
-				// 	EmbedPrimary({
-				// 		title:'Esta no es una opcion valida',
-				// 		description:'`siga la lista de opciones preestablecida`'
-				// 	})
-				// ], ephemeral:true,})
-			break;
+				this.outParameter(this.interactions)
+				break;
 		}
 
 	}
