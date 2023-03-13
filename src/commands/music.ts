@@ -23,11 +23,11 @@ const script: CommandScript = {
     async execute(interaction: ChatInputCommandInteraction) {        
 
         if ((interaction.options as CommandInteractionOptionResolver)['_hoistedOptions'].length <= 0) {
-            (this.clientRef as any).player.outParameter(interaction)
+            this.clientRef?.player.outParameter(interaction)
              return
         }
     
-        (this.clientRef as any).player.optionsDispatcher(interaction)
+        this.clientRef?.player.optionsDispatcher(interaction)
     }
 };
 
