@@ -1,3 +1,4 @@
+console.clear()
 import * as dotenv from 'dotenv';
 import { DiscordClient } from './client';
 dotenv.config()
