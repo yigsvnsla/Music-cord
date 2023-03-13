@@ -30,7 +30,7 @@ export class CommanderScripts {
      * funcion privada constructora para cargar la lista de comandos desde un fichero
      *
      * @param pathCommandsFolder ruta del folder con los scripts
-     */
+     */ 
     private loadCommands(pathCommandsFolder: string): Promise<CommandScript[]> {
         return new Promise(async (resolve, reject) => {
             try {
